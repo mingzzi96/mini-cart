@@ -34,7 +34,7 @@ class ProductList {
             </div>
           </div>
           <h3 class="mt-4 text-gray-700">${item.name}</h3>
-          <p class="mt-1 text-lg font-semibold text-gray-900">${item.price}</p>
+          <p class="mt-1 text-lg font-semibold text-gray-900">${item.price.toLocaleString()}</p>
         </article>
         `;
         })
