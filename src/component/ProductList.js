@@ -15,9 +15,12 @@ class ProductList {
     // 반드시 Join을 해줘야하는데.
     // 이렇게 해주게 되면 map 결과물들이 빈 문자열 기준으로 다 합쳐지면서 제대로된 string값을 얻을 수 있게된다.
     // 그 string을 받아온 $target에 innerHtml로 할당 가능!
-    this.$target.innerHTML = this.state
-      .map((item) => {
-        return `
+    if (this.state.length === 0) {
+      this.$target.innerHTML = '<h1>상품이 없습니다.</h1>';
+    } else {
+      this.$target.innerHTML = this.state
+        .map((item) => {
+          return `
         <article id="product-card">
           <div class="rounded-lg overflow-hidden border-2 relative">
             <img src=${item.imgSrc} class="object-center object-cover" />
@@ -34,8 +37,9 @@ class ProductList {
           <p class="mt-1 text-lg font-semibold text-gray-900">${item.price}</p>
         </article>
         `;
-      })
-      .join('');
+        })
+        .join('');
+    }
   }
 }
 export default ProductList;
