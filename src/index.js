@@ -2,8 +2,18 @@ import getProductData from './api/getProductData.js';
 import ProductList from './component/ProductList.js';
 
 const $productListGrid = document.getElementById('product-card-grid');
+const $openCartBtn = document.getElementById('open-cart-btn');
+const $closeCartBtn = document.getElementById('close-cart-btn');
+const $shoppingCart = document.getElementById('shopping-cart');
+const $backdrop = document.getElementById('backdrop');
 
 const productList = new ProductList($productListGrid, []);
+
+const toggleCart = () => {
+  $shoppingCart.classList.toggle('translate-x-full');
+  $shoppingCart.classList.toggle('translate-x-0');
+  $backdrop.hidden = !$backdrop.hidden;
+};
 
 // async 함수 생성.
 const fetchProductData = async () => {
@@ -16,3 +26,8 @@ const fetchProductData = async () => {
 };
 
 fetchProductData();
+
+$openCartBtn.addEventListener('click', toggleCart);
+$closeCartBtn.addEventListener('click', toggleCart);
+$backdrop.addEventListener('click', toggleCart);
+$productListGrid.addEventListener('click', toggleCart);
