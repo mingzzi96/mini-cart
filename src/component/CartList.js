@@ -17,12 +17,21 @@ class CartList {
     this.state = newState;
     this.render();
   }
+
+  // 추가할 productData를 파라미터로 받아온다.
+  addCartItem(productData) {
+    // 현재 있는 데이터 뒤에다 추가 되어야하는 데이터와 count를 추가해 준다.
+    const newState = [...this.state, { ...productData, count: 1 }];
+    console.log(newState);
+    this.setState(newState);
+  }
+
   // state라는 큰 배열안에 들어있는 객체 하나가 Item이 된다
   render() {
     this.$container.innerHTML = this.state
       .map((item) => {
         return `
-          <li class="flex py-6" id="4">
+          <li class="flex py-6" id=${item.id}>
             <div
               class="h-24 w-24 overflow-hidden rounded-md border border-gray-200"
             >

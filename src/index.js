@@ -9,6 +9,8 @@ const $shoppingCart = document.getElementById('shopping-cart');
 const $backdrop = document.getElementById('backdrop');
 const $cartList = document.getElementById('cart-list');
 
+// 장바구니 기능을 위한 상품 목록 데이터 저장
+let productData = [];
 // 인스턴스 생성
 const productList = new ProductList($productListGrid, []);
 const cartList = new CartList($cartList, []);
@@ -27,11 +29,22 @@ const fetchProductData = async () => {
   // 데이터가 다 받아와지고 난 뒤 setState를 해주자.
   // 그럼 원래 빈 배열인 상태에서 setState로 새 상태를 업데이트해주니까 그 업뎃된 값이 바로 들어가게되는 것.
   productList.setState(result);
+  // 상품 목록 데이터 다 받아와지고 나면 productData 속에 넣어준다.
+  productData = result;
 };
 
 fetchProductData();
 
+const addCartItem = (e) => {
+  // productData 안에서 클릭된 아이템과 같은 Id를 가진 객체를 찾아낸다.
+  const clickedProduct = productData.find(
+    (product) => product.id == e.target.dataset.productid
+  );
+  cartList.addCartItem(clickedProduct);
+  toggleCart();
+};
+
 $openCartBtn.addEventListener('click', toggleCart);
 $closeCartBtn.addEventListener('click', toggleCart);
 $backdrop.addEventListener('click', toggleCart);
-$productListGrid.addEventListener('click', toggleCart);
+$productListGrid.addEventListener('click', addCartItem);
