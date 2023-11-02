@@ -1,13 +1,17 @@
 import getProductData from './api/getProductData.js';
 import ProductList from './component/ProductList.js';
+import CartList from './component/CartList.js';
 
 const $productListGrid = document.getElementById('product-card-grid');
 const $openCartBtn = document.getElementById('open-cart-btn');
 const $closeCartBtn = document.getElementById('close-cart-btn');
 const $shoppingCart = document.getElementById('shopping-cart');
 const $backdrop = document.getElementById('backdrop');
+const $cartList = document.getElementById('cart-list');
 
+// 인스턴스 생성
 const productList = new ProductList($productListGrid, []);
+const cartList = new CartList($cartList, []);
 
 const toggleCart = () => {
   $shoppingCart.classList.toggle('translate-x-full');
