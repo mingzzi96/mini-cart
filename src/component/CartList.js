@@ -6,6 +6,8 @@ class CartList {
     this.$container = document.createElement('ul');
     // 만들어준 ul의 클래스를 부여해준다.
     this.$container.className = 'divide-y divide-gray-200';
+    // 가격의 합
+    this.$totalCount = document.getElementById('total-count');
     this.state = initialData;
     // innerHTML은 string이 들어가야해서 사용 불가
     // this.$target.innerHTML;
@@ -22,12 +24,15 @@ class CartList {
   addCartItem(productData) {
     // 현재 있는 데이터 뒤에다 추가 되어야하는 데이터와 count를 추가해 준다.
     const newState = [...this.state, { ...productData, count: 1 }];
-    console.log(newState);
     this.setState(newState);
   }
 
   // state라는 큰 배열안에 들어있는 객체 하나가 Item이 된다
   render() {
+    this.$totalCount.innerHTML =
+      this.state
+        .reduce((acc, cur) => acc + cur.price * cur.count, 0)
+        .toLocaleString() + '원';
     this.$container.innerHTML = this.state
       .map((item) => {
         return `
@@ -46,7 +51,7 @@ class CartList {
                   class="flex justify-between text-base font-medium text-gray-900"
                 >
                   <h3>${item.name}</h3>
-                  <p class="ml-4">${item.price.toLocaleString()}</p>
+                  <p class="ml-4">${item.price.toLocaleString()}원</p>
                 </div>
               </div>
               <div class="flex flex-1 items-end justify-between">
