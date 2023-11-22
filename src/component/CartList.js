@@ -22,8 +22,24 @@ class CartList {
 
   // 추가할 productData를 파라미터로 받아온다.
   addCartItem(productData) {
-    // 현재 있는 데이터 뒤에다 추가 되어야하는 데이터와 count를 추가해 준다.
-    const newState = [...this.state, { ...productData, count: 1 }];
+    let newState;
+    // 현재 장바구니에 내가 추가하고자 하는 아이템이 이미 있는지 없는지를 파악해야한다.
+    // 현재 클릭된 아이템의 id 값 저장
+    const clickedProductId = productData.id;
+    // 지금 배열에 있는 Item 들 중에 현재 클릭된 Id가 있나 없나 확인.
+    // findIndex로 찾는데, 없다면 -1을 반환하고 있다면 배열 속 해당 Item의 가장 첫번째 Item의 index를 반환한다.
+    const checkedIndex = this.state.findIndex(
+      (item) => item.id === clickedProductId
+    );
+    if (checkedIndex === -1) {
+      // 처음 추가되는 상품이라면?
+      // 현재 있는 데이터 뒤에다 추가 되어야하는 데이터와 count를 추가해 준다.
+      newState = [...this.state, { ...productData, count: 1 }];
+    } else {
+      // 중복된다면? 상품을 다시 새로 추가하지 말고, 선택된 상품의 index(checkedIndex)의 Count를 1 증가시켜 준다.
+      newState = [...this.state];
+      newState[checkedIndex].count += 1;
+    }
     this.setState(newState);
   }
 
