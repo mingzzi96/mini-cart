@@ -44,7 +44,19 @@ const addCartItem = (e) => {
   toggleCart();
 };
 
+const removeCartItem = (e) => {
+  // 현재 클릭된 상품을 장바구니에서 삭제한다.
+  if (e.target.className === 'remove-btn') {
+    // cartList 안에 어떤 요소를 킬릭해도 다 반응하니까 방어기제를 넣어준다.
+    // 눌려진 요소의 Li에 id 값을 넘겨준다.
+    // type of id를 콘솔에 찍어보면 string으로 넘겨주고 있으니, 정수로 변경시켜준 다음 보내자.
+    const productId = parseInt(e.target.closest('li').id);
+    cartList.removeCartItem(productId);
+  }
+};
+
 $openCartBtn.addEventListener('click', toggleCart);
 $closeCartBtn.addEventListener('click', toggleCart);
 $backdrop.addEventListener('click', toggleCart);
 $productListGrid.addEventListener('click', addCartItem);
+$cartList.addEventListener('click', removeCartItem);

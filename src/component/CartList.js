@@ -27,6 +27,12 @@ class CartList {
     this.setState(newState);
   }
 
+  removeCartItem(id) {
+    const newState = this.state.filter((item) => item.id !== id);
+    // 선택한 아이템이 지워진 새로운 배열을 기존 배열에 새로 넣어준다.
+    this.setState(newState);
+  }
+
   // state라는 큰 배열안에 들어있는 객체 하나가 Item이 된다
   render() {
     this.$totalCount.innerHTML =
